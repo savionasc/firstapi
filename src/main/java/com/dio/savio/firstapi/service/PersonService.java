@@ -1,27 +1,25 @@
-package com.dio.savio.firstapi.controller;
+package com.dio.savio.firstapi.service;
 
 import com.dio.savio.firstapi.dto.response.MessageResponseDTO;
 import com.dio.savio.firstapi.entity.Person;
 import com.dio.savio.firstapi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("/api/v1/people")
-public class PersonController {
+@Service
+public class PersonService {
     private PersonRepository personRepository;
 
     @Autowired
-    public PersonController(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    @PostMapping
-    public MessageResponseDTO createPerson(@RequestBody Person person){
+    public MessageResponseDTO createPerson(Person person){
         Person savedPerson = personRepository.save(person);
         return MessageResponseDTO
                 .builder()
-                .message("Created person with ID " + savedPerson.getId())
+                .message("Service: Created person with ID " + savedPerson.getId())
                 .build();
     }
 }
